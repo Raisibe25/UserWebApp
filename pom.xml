@@ -1,0 +1,122 @@
+<project>
+<modelVersion>4.0.0</modelVersion>
+<groupId>org.example</groupId>
+<artifactId>UserWebApp</artifactId>
+<version>1.0-SNAPSHOT</version>
+<packaging>war</packaging>
+
+<properties>
+<maven.compiler.source>17</maven.compiler.source>
+<maven.compiler.target>17</maven.compiler.target>
+<db.url>jdbc:mysql://localhost:3306/userdb</db.url>
+<db.user>dbuser</db.user>
+<db.password>dbpass</db.password>
+</properties>
+
+<dependencies>
+    <!-- Jakarta JSP + JSTL API (GA release) -->
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
+    <!-- GlassFish implementation of the above API -->
+    <dependency>
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
+<!-- 1) Jakarta Servlet API (Tomcat 11 / Servlet 6.0) -->
+<dependency>
+  <groupId>jakarta.servlet</groupId>
+  <artifactId>jakarta.servlet-api</artifactId>
+  <version>6.0.0</version>
+  <scope>provided</scope>
+</dependency>
+
+<!-- 2) Jakarta JSP + JSTL API -->
+<dependency>
+  <groupId>jakarta.servlet.jsp.jstl</groupId>
+  <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+  <version>3.0.0</version>
+</dependency>
+
+<!-- 3) GlassFish implementation of Jakarta JSTL -->
+<dependency>
+  <groupId>org.glassfish.web</groupId>
+  <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+  <version>3.0.0</version>
+</dependency>
+
+<!-- 4) MySQL Connector for Flyway and DAO -->
+<dependency>
+  <groupId>mysql</groupId>
+  <artifactId>mysql-connector-java</artifactId>
+  <version>8.0.23</version>
+</dependency>
+
+<!-- 5) BCrypt for secure password hashing -->
+<dependency>
+  <groupId>org.mindrot</groupId>
+  <artifactId>jbcrypt</artifactId>
+  <version>0.4</version>
+</dependency>
+
+<!-- 6) JUnit for unit tests -->
+<dependency>
+  <groupId>junit</groupId>
+  <artifactId>junit</artifactId>
+  <version>4.13.2</version>
+  <scope>test</scope>
+</dependency>
+</dependencies>
+
+<build>
+<finalName>UserWebApp</finalName>
+<plugins>
+
+  <plugin>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-maven-plugin</artifactId>
+    <version>9.0.0</version>
+    <dependencies>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.23</version>
+      </dependency>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.33</version>
+      </dependency>
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-mysql</artifactId>
+        <version>9.0.0</version>
+      </dependency>
+    </dependencies>
+    <executions>
+      <execution>
+        <id>migrate-schema</id>
+        <phase>initialize</phase>
+        <goals>
+          <goal>migrate</goal>
+        </goals>
+      </execution>
+    </executions>
+    <configuration>
+      <driver>com.mysql.cj.jdbc.Driver</driver>
+      <url>${db.url}</url>
+      <user>${db.user}</user>
+      <password>${db.password}</password>
+      <locations>
+        <location>filesystem:src/main/resources/db/migration</location>
+      </locations>
+    </configuration>
+  </plugin>
+</plugins>
+</build>
+        </project>
