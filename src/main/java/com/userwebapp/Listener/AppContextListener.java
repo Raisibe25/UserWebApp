@@ -20,8 +20,6 @@ public class AppContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("AppContextListener initialized");
-        // If you ever manually loaded the driver here
-        // Class.forName("com.mysql.cj.jdbc.Driver");
     }
 
     @Override
