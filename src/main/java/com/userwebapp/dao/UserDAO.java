@@ -18,7 +18,6 @@ public class UserDAO {
                     "VALUES (?, ?, ?, ?)";
 
     // 3. Update profile (full name, email, optional password)
-    //    We'll build this SQL dynamically in updateProfile()
 
     /**
      * Registers a new user. Returns generated user ID.
